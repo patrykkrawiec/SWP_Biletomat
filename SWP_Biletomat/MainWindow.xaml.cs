@@ -23,6 +23,7 @@ namespace SWP_Biletomat
         public MainWindow()
         {
             InitializeComponent();
+            //Check
         }
     }
 }
