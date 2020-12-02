@@ -47,9 +47,7 @@ namespace SWP_Biletomat
         {
             ss = new SpeechSynthesizer();
             ss.SetOutputToDefaultAudioDevice();
-            ss.Speak("Witam w kalkulatorze");
-            ss.Speak("Powiedz. ile jest. a następnie działanie w formacie liczba operacja liczba ");
-            ss.Speak("Obsługiwane operacje wyświetlają się po prawej stronie okna");
+            ss.Speak("Witam");
             CultureInfo ci = new CultureInfo("pl-PL");
             sre = new SpeechRecognitionEngine(ci);
             sre.SetInputToDefaultAudioDevice();

@@ -1,9 +1,9 @@
 ﻿<grammar version="1.0" xml:lang="pl-PL" root="rootRule" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
 
   <rule id="rootRule">
-    <item repeat="0-1">poprosze</item>
+    <item repeat="0-1">daj</item>
     <ruleref uri="#number"/>
-    <tag> out.number = rules.last()</tag>
+    <tag> out.number = rules.latest();</tag>
     <ruleref uri="#ticket_type" />
     <tag> out.ticket_type = rules.latest();</tag>
   </rule>
@@ -17,10 +17,10 @@
       <item>normalny
         <tag>out="normalny"</tag>
       </item>
-    </one-of>
-    <one-of>
+  
+    
       <item>miesięczny
-        <tag>out=miesięczny</tag>
+        <tag>out="miesięczny"</tag>
       </item>
     </one-of>
   </rule>
