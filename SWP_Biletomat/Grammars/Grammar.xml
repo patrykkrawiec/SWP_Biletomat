@@ -1,0 +1,95 @@
+﻿<grammar version="1.0" xml:lang="pl-PL" root="rootRule" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+	<rule id="rootRule">
+
+		<ruleref uri="#action" />
+		<tag>out.action=rules.latest();</tag>
+		
+		<ruleref uri="#numberOfTickets" />
+		<tag>out.numberOfTickets=rules.latest();</tag>
+
+		<ruleref uri="#tickets" />
+		<tag>out.tickets=rules.latest();</tag>
+
+		<ruleref uri="#typeOne" />
+		<tag>out.typeOne=rules.latest();</tag>
+		
+		<ruleref uri="#typeTwo" />
+		<tag>out.typeTwo=rules.latest();</tag>
+		
+	
+	</rule>
+
+	<rule id="action">
+		<one-of>
+			<item repeat="0-1">proszę o</item>
+			<item repeat="0-1">poproszę</item>
+			<item repeat="0-1">proszę</item>
+			<item repeat="0-1">proszę podać</item>
+			<item repeat="0-1">sprzedaj</item>
+			<item repeat="0-1">daj</item>
+			<item repeat="0-1">chciałbym</item>
+			<item repeat="0-1">chciałbym kupić</item>
+			<item repeat="0-1">chciałbym dostać</item>
+			<item repeat="0-1">chciałbym wziąć</item>
+			<item repeat="0-1">dawaj</item>
+		</one-of>
+	</rule>
+	
+	<rule id="numberOfTickets">
+		<one-of>
+			<item repeat="0-1">jeden <tag> out="1" </tag></item>
+			<item repeat="0-1">dwa <tag> out="2" </tag></item>
+			<item repeat="0-1">trzy <tag> out="3" </tag></item>
+			<item repeat="0-1">cztery <tag> out="4" </tag></item>
+			<item repeat="0-1">pięć <tag> out="5" </tag></item>
+			<item repeat="0-1">sześć <tag> out="6" </tag></item>
+			<item repeat="0-1">siedem <tag> out="7" </tag></item>
+			<item repeat="0-1">osiem <tag> out="8" </tag></item>
+			<item repeat="0-1">dziewięć <tag> out="9" </tag></item>
+		</one-of>
+	</rule>
+	
+	<rule id="tickets">
+		<one-of>
+			<item repeat="0-1">bilet</item>
+			<item repeat="0-1">biletów</item>
+			<item repeat="0-1">bilety</item>
+		</one-of>
+	</rule>
+
+	<rule id="typeOne">
+		<one-of>
+			<item repeat="0-1">dwudziestominutowy <tag>out="20"</tag></item>
+			<item repeat="0-1">dwudziestominutowych <tag>out="20"</tag></item>
+			<item repeat="0-1">dwudziestominutowe <tag>out="20"</tag></item>
+			<item repeat="0-1">siedemdziesięciopięciominutowy <tag>out="75"</tag></item>
+			<item repeat="0-1">siedemdziesięciopięciominutowe <tag>out="75"</tag></item>
+			<item repeat="0-1">siedemdziesięciopięciominutowych <tag>out="75"</tag></item>
+			<item repeat="0-1">dobowy <tag>out="dobowy"</tag></item>
+			<item repeat="0-1">dobowe <tag>out="dobowy"</tag></item>
+			<item repeat="0-1">dobowych <tag>out="dobowy"</tag></item>
+			<item repeat="0-1">weekendowy <tag>out="weekendowy"</tag></item>
+			<item repeat="0-1">weekendowe <tag>out="weekendowy"</tag></item>
+			<item repeat="0-1">weekendowych <tag>out="weekendowy"</tag></item>
+		</one-of>
+	</rule>
+	
+	<rule id="typeTwo">
+		<one-of>
+			<item repeat="0-1">ulgowy <tag>out="ulgowy"</tag></item>
+			<item repeat="0-1">ulgowe <tag>out="ulgowy"</tag></item>
+			<item repeat="0-1">ulgowych <tag>out="ulgowy"</tag></item>
+			<item repeat="0-1">studencki <tag>out="ulgowy"</tag></item>
+			<item repeat="0-1">studenckie <tag>out="ulgowy"</tag></item>
+			<item repeat="0-1">studenckich <tag>out="ulgowy"</tag></item>
+			<item repeat="0-1">normalny <tag>out="normalny"</tag></item>
+			<item repeat="0-1">normalne <tag>out="normalny"</tag></item>
+			<item repeat="0-1">normalnych <tag>out="normalny"</tag></item>
+			<item repeat="0-1">zwykły <tag>out="normalny"</tag></item>
+			<item repeat="0-1">zwykłe <tag>out="normalny"</tag></item>
+			<item repeat="0-1">zwykłych <tag>out="normalny"</tag></item>
+		</one-of>
+	</rule>
+	
+</grammar>
+

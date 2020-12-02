@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWP_Biletomat"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Biletomat" Height="400" Width="800">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="Black" Offset="0"/>
+            <GradientStop Color="#FF0888C3" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid>
-        
+
+        <Label Name ="lbl_help" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="50" Width="772" HorizontalContentAlignment="Center" FontSize="15" Foreground="White"/>
+        <Label Name ="lbl_exemple" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Height="50" Width="772" HorizontalContentAlignment="Center" FontSize="15" Foreground="White"/>
+        <Label Name ="lbl_recognition" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Height="50" Width="772" HorizontalContentAlignment="Center" FontSize="15" Foreground="White"/>
+        <Label Name ="lbl_speech"  HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Height="70" Width="772" HorizontalContentAlignment="Center" FontSize="25" Foreground="White" Background="#00000000"/>
+
     </Grid>
 </Window>
