@@ -18,12 +18,12 @@ namespace SWP_Biletomat
         static SpeechRecognitionEngine sre;
         static SpeechSynthesizer ss;
         private readonly BackgroundWorker worker = new BackgroundWorker();
-        int numberOfTickets;
-        string typeOne;
-        string typeTwo;
-        bool isNumber;
-        bool isTypeOne;
-        bool isTypeTwo;
+        private int numberOfTickets=0;
+        private string timeType="";
+        private string type="";
+        private bool isNumber=false;
+        private bool isTimeType = false;
+        private bool isType = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -52,64 +52,67 @@ namespace SWP_Biletomat
         private void Sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             string txt = e.Result.Text;
+            Console.WriteLine(txt);
             float confidence = e.Result.Confidence;
             AddContent(lbl_recognition, "ROZPOZNANO: \"" + txt + "\" z pewnoscia " + confidence, false);
-            if (confidence >= 0.7)
+            if (confidence >= 0.8)
             {
 
 
-                if (e.Result.Semantics["numberOfTickets"].Value.Equals(" ") || e.Result.Semantics["numberOfTickets"].Value.Equals("")) { isNumber = false; }
-                else { numberOfTickets = Convert.ToInt32(e.Result.Semantics["numberOfTickets"].Value);
+                if (e.Result.Semantics["numberOfTickets"].Value.Equals(" ") && !isNumber ||e.Result.Semantics["numberOfTickets"].Value.Equals("") && !isNumber) { isNumber = false; }
+                else if(!isNumber) { numberOfTickets = Convert.ToInt32(e.Result.Semantics["numberOfTickets"].Value);
                     isNumber = true;
                 }
 
-                if (e.Result.Semantics["typeOne"].Value.Equals("")) { isTypeOne = false; }
-                else { typeOne = e.Result.Semantics["typeOne"].Value.ToString();
-                    isTypeOne = true;
+                if (e.Result.Semantics["timeType"].Value.Equals("") && !isTimeType) { isTimeType = false; }
+                else if(!isTimeType) { timeType = e.Result.Semantics["timeType"].Value.ToString();
+                    isTimeType = true;
                 }
 
-                if (e.Result.Semantics["typeTwo"].Value.Equals("")) { isTypeTwo = false; }
-                else { typeTwo = e.Result.Semantics["typeTwo"].Value.ToString();
-                    isTypeTwo = true;
+                if (e.Result.Semantics["type"].Value.Equals("") && !isType) { isType = false; }
+                else if (!isType)
+                { type = e.Result.Semantics["type"].Value.ToString();
+                    isType = true;
                 }
 
 
 
-                if (isNumber && isTypeOne && isTypeTwo)
+                if (isNumber && isTimeType && isType)
                 {
                     ss.SpeakAsync("Mam wszystkie niezbędne dane");
+                    ss.SpeakAsync("Wybrano " + numberOfTickets + " bilet " + timeType + ", " + type);
                 }
 
-                else if (!isNumber && isTypeOne && isTypeTwo)
+                else if (!isNumber && isTimeType && isType)
                 {
-                    ss.SpeakAsync("Brak liczby biletów");
+                    ss.SpeakAsync("Wybrano bilet "+ timeType +", "+ type + ", podaj liczbę biletów");
                 }
 
-                else if (isNumber && !isTypeOne && isTypeTwo)
+                else if (isNumber && !isTimeType && isType)
                 {
-                    ss.SpeakAsync("Podaj jaki bilet " + typeTwo + " chcesz kupić");
+                    ss.SpeakAsync("Wybrano " + numberOfTickets + " bilet " + type + ", podaj czas trwania biletu");
                 }
 
-                else if (isNumber && isTypeOne && !isTypeTwo)
+                else if (isNumber && isTimeType && !isType)
                 {
-                    ss.SpeakAsync("Podaj jaki bilet " + typeOne + " chcesz kupić");
+                    ss.SpeakAsync("Wybrano " + numberOfTickets + " bilet " + timeType + ", chcesz kupić bilet normalny czy ulgowy?");
                 }
 
-                else if (!isNumber && !isTypeOne && isTypeTwo)
+                else if (!isNumber && !isTimeType && isType)
                 {
-                    
+                    ss.SpeakAsync("Brak liczby i okresu");
                 }
-                if (isNumber && !isTypeOne && !isTypeTwo)
+                if (isNumber && !isTimeType && !isType)
                 {
-                    
+                    ss.SpeakAsync("Brak okresu i typu");
                 }
-                if (!isNumber && isTypeOne && !isTypeTwo)
+                if (!isNumber && isTimeType && !isType)
                 {
-                    
+                    ss.SpeakAsync("Brak liczby i typu");
                 }
-                if (!isNumber && !isTypeOne && !isTypeTwo)
+                if (!isNumber && !isTimeType && !isType)
                 {
-
+                    ss.SpeakAsync("Brak każdej z trzech");
                 }
 
             }

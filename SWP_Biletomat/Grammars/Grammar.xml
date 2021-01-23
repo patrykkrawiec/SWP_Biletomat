@@ -10,11 +10,11 @@
 		<ruleref uri="#tickets" />
 		<tag>out.tickets=rules.latest();</tag>
 
-		<ruleref uri="#typeOne" />
-		<tag>out.typeOne=rules.latest();</tag>
+		<ruleref uri="#timeType" />
+		<tag>out.timeType=rules.latest();</tag>
 		
-		<ruleref uri="#typeTwo" />
-		<tag>out.typeTwo=rules.latest();</tag>
+		<ruleref uri="#type" />
+		<tag>out.type=rules.latest();</tag>
 		
 	
 	</rule>
@@ -57,24 +57,28 @@
 		</one-of>
 	</rule>
 
-	<rule id="typeOne">
+	<rule id="timeType">
 		<one-of>
 			<item repeat="0-1">dwudziestominutowy <tag>out="20"</tag></item>
 			<item repeat="0-1">dwudziestominutowych <tag>out="20"</tag></item>
 			<item repeat="0-1">dwudziestominutowe <tag>out="20"</tag></item>
+			<item repeat="0-1">dwadzieścia <tag>out="20"</tag></item>
 			<item repeat="0-1">siedemdziesięciopięciominutowy <tag>out="75"</tag></item>
 			<item repeat="0-1">siedemdziesięciopięciominutowe <tag>out="75"</tag></item>
 			<item repeat="0-1">siedemdziesięciopięciominutowych <tag>out="75"</tag></item>
+			<item repeat="0-1">siedemdziesiątpięć <tag>out="75"</tag></item>
 			<item repeat="0-1">dobowy <tag>out="dobowy"</tag></item>
 			<item repeat="0-1">dobowe <tag>out="dobowy"</tag></item>
 			<item repeat="0-1">dobowych <tag>out="dobowy"</tag></item>
+			<item repeat="0-1">doba <tag>out="dobowy"</tag></item>
 			<item repeat="0-1">weekendowy <tag>out="weekendowy"</tag></item>
 			<item repeat="0-1">weekendowe <tag>out="weekendowy"</tag></item>
 			<item repeat="0-1">weekendowych <tag>out="weekendowy"</tag></item>
+			<item repeat="0-1">weekend <tag>out="weekendowy"</tag></item>
 		</one-of>
 	</rule>
 	
-	<rule id="typeTwo">
+	<rule id="type">
 		<one-of>
 			<item repeat="0-1">ulgowy <tag>out="ulgowy"</tag></item>
 			<item repeat="0-1">ulgowe <tag>out="ulgowy"</tag></item>
