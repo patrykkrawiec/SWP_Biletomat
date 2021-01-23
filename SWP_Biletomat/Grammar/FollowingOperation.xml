@@ -1,0 +1,24 @@
+﻿<grammar version="1.0" xml:lang="pl-PL" root="rootRule" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+
+  <rule id="rootRule">
+    <ruleref uri="#following_operation"/>
+    <tag> out.following_operation = rules.latest();</tag>
+
+  </rule>
+  <rule id="following_operation">
+    <one-of>
+      
+      <item>
+        tak
+        <tag>out="tak"</tag>
+      </item>
+      
+      <item>
+        nie
+        <tag>out="nie"</tag>
+      </item>
+      
+    </one-of>
+  </rule>
+
+</grammar>

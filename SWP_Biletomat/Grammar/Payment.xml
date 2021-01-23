@@ -1,0 +1,21 @@
+﻿<grammar version="1.0" xml:lang="pl-PL" root="rootRule" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+
+  <rule id="rootRule">
+    <ruleref uri="#payment_type"/>
+    <tag> out.payment_type = rules.latest();</tag>
+  </rule>
+
+
+  <rule id="payment_type">
+    <one-of>
+      <item>
+        karta
+        <tag>out="karta"</tag>
+      </item>
+      <item>
+        gotówka
+        <tag>out="gotówka"</tag>
+      </item>
+    </one-of>
+  </rule>
+</grammar>
