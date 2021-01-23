@@ -8,14 +8,8 @@
 
   <rule id="payment_type">
     <one-of>
-      <item>
-        karta
-        <tag>out="karta"</tag>
-      </item>
-      <item>
-        gotówka
-        <tag>out="gotówka"</tag>
-      </item>
+      <item>karta<tag>out="karta"</tag></item>
+      <item>gotówka<tag>out="gotówka"</tag></item>
     </one-of>
   </rule>
 </grammar>

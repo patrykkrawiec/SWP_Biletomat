@@ -5,25 +5,46 @@
     <tag> out.number = rules.latest();</tag>
     <ruleref uri="#ticket_type" />
     <tag> out.ticket_type = rules.latest();</tag>
+	<ruleref uri="#ticket_time" />
+	<tag> out.ticket_time = rules.latest();</tag>
   </rule>
 
 
   <rule id="ticket_type">
     <one-of>
-      <item>
-        ulgowy
-        <tag>out="ulgowy"</tag>
-      </item>
-      <item>
-        normalny
-        <tag>out="normalny"</tag>
-      </item>
-
-
-      <item>
-        miesięczny
-        <tag>out="miesięczny"</tag>
-      </item>
+		<item>ulgowy <tag>out="ulgowy"</tag></item>
+		<item>ulgowe <tag>out="ulgowy"</tag></item>
+		<item>ulgowych <tag>out="ulgowy"</tag></item>
+		<item>studencki <tag>out="ulgowy"</tag></item>
+		<item>studenckie <tag>out="ulgowy"</tag></item>
+		<item>studenckich <tag>out="ulgowy"</tag></item>
+		<item>normalny <tag>out="normalny"</tag></item>
+		<item>normalne <tag>out="normalny"</tag></item>
+		<item>normalnych <tag>out="normalny"</tag></item>
+		<item>zwykły <tag>out="normalny"</tag></item>
+		<item>zwykłe <tag>out="normalny"</tag></item>
+		<item>zwykłych <tag>out="normalny"</tag></item>
+    </one-of>
+  </rule>
+	
+	<rule id="ticket_time">
+    <one-of>
+			<item repeat="0-1">dwudziestominutowy <tag>out="dwudziestominutowy"</tag></item>
+			<item repeat="0-1">dwudziestominutowych <tag>out="dwudziestominutowy"</tag></item>
+			<item repeat="0-1">dwudziestominutowe <tag>out="dwudziestominutowy"</tag></item>
+			<item repeat="0-1">dwadzieścia <tag>out="dwudziestominutowy"</tag></item>
+			<item repeat="0-1">siedemdziesięciopięciominutowy <tag>out="siedemdziesięciopięciominutowy"</tag></item>
+			<item repeat="0-1">siedemdziesięciopięciominutowe <tag>out="siedemdziesięciopięciominutowy"</tag></item>
+			<item repeat="0-1">siedemdziesięciopięciominutowych <tag>out="siedemdziesięciopięciominutowy"</tag></item>
+			<item repeat="0-1">siedemdziesiątpięć <tag>out="siedemdziesięciopięciominutowy"</tag></item>
+			<item repeat="0-1">dobowy <tag>out="dobowy"</tag></item>
+			<item repeat="0-1">dobowe <tag>out="dobowy"</tag></item>
+			<item repeat="0-1">dobowych <tag>out="dobowy"</tag></item>
+			<item repeat="0-1">doba <tag>out="dobowy"</tag></item>
+			<item repeat="0-1">weekendowy <tag>out="weekendowy"</tag></item>
+			<item repeat="0-1">weekendowe <tag>out="weekendowy"</tag></item>
+			<item repeat="0-1">weekendowych <tag>out="weekendowy"</tag></item>
+			<item repeat="0-1">weekend <tag>out="weekendowy"</tag></item>
     </one-of>
   </rule>
 
@@ -31,36 +52,15 @@
 
   <rule id="number">
     <one-of>
-      <item>
-        zero <tag> out="0"</tag>
-      </item>
-      <item>
-        jeden <tag> out="1"; </tag>
-      </item>
-      <item>
-        dwa <tag> out="2"; </tag>
-      </item>
-      <item>
-        trzy <tag> out="3"; </tag>
-      </item>
-      <item>
-        cztery <tag> out="4"; </tag>
-      </item>
-      <item>
-        pięć <tag> out="5"; </tag>
-      </item>
-      <item>
-        sześć <tag> out="6"; </tag>
-      </item>
-      <item>
-        siedem <tag> out="7"; </tag>
-      </item>
-      <item>
-        osiem <tag> out="8"; </tag>
-      </item>
-      <item>
-        dziewięć <tag> out="9"; </tag>
-      </item>
+			<item>jeden<tag> out="1" </tag></item>
+			<item>dwa<tag> out="2" </tag></item>
+			<item>trzy<tag> out="3" </tag></item>
+			<item>cztery<tag> out="4" </tag></item>
+			<item>pięć<tag> out="5" </tag></item>
+			<item>sześć<tag> out="6" </tag></item>
+			<item>siedem<tag> out="7" </tag></item>
+			<item>osiem<tag> out="8" </tag></item>
+			<item>dziewięć<tag> out="9" </tag></item>
     </one-of>
   </rule>
 </grammar>

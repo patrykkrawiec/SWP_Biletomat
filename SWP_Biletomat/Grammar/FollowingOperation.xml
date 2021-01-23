@@ -7,17 +7,8 @@
   </rule>
   <rule id="following_operation">
     <one-of>
-      
-      <item>
-        tak
-        <tag>out="tak"</tag>
-      </item>
-      
-      <item>
-        nie
-        <tag>out="nie"</tag>
-      </item>
-      
+      <item>tak<tag>out="tak"</tag></item>
+      <item>nie<tag>out="nie"</tag></item>
     </one-of>
   </rule>
 

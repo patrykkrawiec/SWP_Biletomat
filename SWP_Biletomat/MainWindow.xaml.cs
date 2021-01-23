@@ -2,22 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Globalization;
-using Microsoft.Speech;
 using Microsoft.Speech.Recognition;
 using Microsoft.Speech.Synthesis;
-using System.Windows.Threading;
-using System.Threading.Tasks;
 using System.ComponentModel;
 
 namespace SWP_Biletomat
@@ -35,8 +23,12 @@ namespace SWP_Biletomat
         Grammar grammarStart, grammarTickets, grammarFollowingOperation, grammarPayment;
         private int fail_count = 0;
         private string avaible_oper = "";
-        private string instruction = "Powiedz \" ile jest \" a następnie działanie w formacie \"liczba\" operacja \"liczba\" ";
-
+        private string instruction = "UŻYJ SFORMUŁOWANIA:    \"Poproszę bilet\" + liczba biletów + rodzaj bieletu ";
+        private string example = "PRZYKŁAD:    \"Poproszę bilet, jeden ulgowy dwudziestominutowy\" ";
+        private bool flag1 = false;
+        private string recognized; 
+        private String ticketString;
+        private float ticketPrice=0;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             paymentStatus = 1;
@@ -51,6 +43,7 @@ namespace SWP_Biletomat
         {
             InitializeComponent();
             Instrucion_lbl.Content = instruction;
+            Exemple_lbl.Content = example;
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerAsync();
 
@@ -66,9 +59,7 @@ namespace SWP_Biletomat
             sre.SetInputToDefaultAudioDevice();
             sre.SpeechRecognized += Sre_SpeechRecognized;
 
-            GrammarBuilder buildGrammarSystem = new GrammarBuilder();
-            buildGrammarSystem.Append("poproszę bilet");
-            grammarStart = new Grammar(buildGrammarSystem);
+            grammarStart = new Grammar(".\\Grammar\\StartGrammar.xml", "rootRule");
             sre.LoadGrammar(grammarStart);
             grammarStart.Enabled = true;
 
@@ -86,138 +77,134 @@ namespace SWP_Biletomat
             {
                 Failed_rec_lbl.Content = "Niepoprawnie rozpoznanych instrukcji";
                 avaible_operation.Content = avaible_oper;
-                avaible_operation.Visibility = Visibility.Visible;
-                Instrucion_lbl.Visibility = Visibility.Visible;
-                Speech_lbl.Visibility = Visibility.Visible;
-                Recognized_lbl.Visibility = Visibility.Visible;
             }));
 
         }
         private bool askForAdditions = false;
         private void Sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
+            recognized = e.Result.Text;
+            StringBuilder sb = new StringBuilder();
 
-            string txt = e.Result.Text;
-
-            Console.WriteLine(txt);
+            Console.WriteLine(recognized);
             float confidence = e.Result.Confidence;
             if (confidence >= 0.7)
             {
-                if (txt.IndexOf("poproszę bilet") >= 0)
+                if ( !flag1 && !e.Result.Semantics["action"].Value.Equals("") && !e.Result.Semantics["ticket"].Value.Equals(""))
                 {
                     grammarTickets.Enabled = true;
                     grammarStart.Enabled = false;
                     order = new Order();
                     order.Tickets = new List<Ticket>();
-                    this.Dispatcher.BeginInvoke(new Action(() =>
-                    {
 
-                        Recognized_lbl.Content = "Rozpoznano :" + txt;
+                    this.Dispatcher.BeginInvoke(new Action(() =>{
+                        Recognized_lbl.Content = "ROZPOZNANO: " + recognized;
+                        History_tb.Text += recognized;
                     }));
 
+                    ss.Speak("Proszę podać liczbe i rodzaj biletu");
+                    showTicketMachineStatment("Proszę podać liczbe i rodzaj biletu");
+                    flag1 = true;
                 }
                 else
                 {
-                    if (askForAdditions)
-                    {
+
+                    this.Dispatcher.BeginInvoke(new Action(() => {
+                        String temp = History_tb.Text;
+                        History_tb.Text = recognized;
+                        History_tb.Text += "\n" + temp;
+                        Recognized_lbl.Content = "ROZPOZNANO: " + recognized;
+                        Ticket_viewer.Content += ticketString;
+                        ticketString = "";
+                        Price_lbl2.Content = ticketPrice.ToString();
+                    }));
+
+                    if (askForAdditions){
                         updateStatus(e);
                         askForAdditions = false;
-
                     }
-                    else if (!order.isDone)
-                    {
-
+                    else if (!order.isDone){
                         getNewTickets(e);
-                        askForAdditions = true;
-
                     }
-                    else if (!order.isPaid)
-                    {
+                    else if (!order.isPaid){
                         payForTickets(e);
                     }
 
-
-
-                    this.Dispatcher.BeginInvoke(new Action(() =>
-                    {
-                        Recognized_lbl.Content = "Rozpoznano :" + txt;
-                    }));
                 }
-
-
             }
-            else
-            {
+            else{
                 ss.Speak("Proszę powtórzyć");
-
+                showTicketMachineStatment("Proszę powtórzyć");
             }
         }
         private void getNewTickets(SpeechRecognizedEventArgs e)
         {
-            if (e.Result.Semantics["ticket_type"].Value.ToString() == "normalny")
-            {
-                if (order.Tickets.Exists(x => x.ticketType == Ticket.TicketType.Normalny))
-                {
-                    int ticketsCount = Convert.ToInt32(e.Result.Semantics["number"].Value);
-                    order.Tickets.First(x => x.ticketType == Ticket.TicketType.Normalny).count += ticketsCount;
+            if (!e.Result.Semantics["ticket_type"].Value.Equals("") && !e.Result.Semantics["ticket_time"].Value.Equals("")) {
+                askForAdditions = true;
 
+                Ticket ticketFinder = new Ticket();
+                Ticket.TicketType type = ticketFinder.findTicketType(e.Result.Semantics["ticket_type"].Value.ToString() + e.Result.Semantics["ticket_time"].Value.ToString());
+
+                if (order.Tickets.Exists(x => x.ticketType == type)){
+                    int ticketsCount = Convert.ToInt32(e.Result.Semantics["number"].Value);
+                    order.Tickets.First(x => x.ticketType == type).count += ticketsCount;
                 }
-                else
-                {
+                else{
                     Ticket ticket = new Ticket();
                     ticket.count = Convert.ToInt32(e.Result.Semantics["number"].Value);
-                    ticket.ticketType = Ticket.TicketType.Normalny;
+                    ticket.ticketType = type;
                     order.Tickets.Add(ticket);
+                    ticketString = "\n"+ticket.count.ToString() + " x " + ticket.ticketType.ToString();
+                   
+                    ticket.findTicketPrice();
+                    ticketPrice += ticket.count * ticket.ticketPrice;
+                    Console.WriteLine(ticketPrice.ToString());
                 }
+
+                
 
                 grammarTickets.Enabled = false;
                 grammarFollowingOperation.Enabled = true;
-                ss.Speak("czy kontynuować zamówienie");
+                ss.Speak("Czy kontynuować zamówienie?");
+                showTicketMachineStatment("Czy kontynuować zamówienie?");
             }
-            if (e.Result.Semantics["ticket_type"].Value.ToString() == "ulgowy")
-            {
-                if (order.Tickets.Exists(x => x.ticketType == Ticket.TicketType.Ulgowy))
-                {
-                    int ticketsCount = Convert.ToInt32(e.Result.Semantics["number"].Value);
-                    order.Tickets.First(x => x.ticketType == Ticket.TicketType.Ulgowy).count += ticketsCount;
-
-                }
-                else
-                {
-                    Ticket ticket = new Ticket();
-                    ticket.count = Convert.ToInt32(e.Result.Semantics["number"].Value);
-                    ticket.ticketType = Ticket.TicketType.Ulgowy;
-                    order.Tickets.Add(ticket);
-                }
-                grammarTickets.Enabled = false;
-                grammarFollowingOperation.Enabled = true;
-                ss.Speak("czy kontynuować zamówienie");
+            else{
+                ss.Speak("Błąd w poleceniu, proszę podać liczbę biletów i rodzaj biletu");
+                showTicketMachineStatment("Błąd w poleceniu, proszę podać liczbę biletów i rodzaj biletu");
             }
 
         }
+
+
+
+
         private void payForTickets(SpeechRecognizedEventArgs e)
         {
             if (e.Result.Semantics["payment_type"].Value.ToString() == "karta")
             {
                 ss.Speak("Przyłóż kartę do czytnika");
+                showTicketMachineStatment("Przyłóż kartę do czytnika");
                 while (paymentStatus != 1)
                 {
 
                 }
                 order.isPaid = true;
                 grammarPayment.Enabled = false;
-                ss.Speak("Płatność zakończona, dziękuję");
+                ss.Speak("Płatność zakończona, dziękuję. Do widzenia.");
+                showTicketMachineStatment("Płatność zakończona, dziękuję. Do widzenia.");
             }
             if (e.Result.Semantics["payment_type"].Value.ToString() == "gotówka")
             {
                 ss.Speak("Wrzuć monety");
+                showTicketMachineStatment("Wrzuć monety");
                 while (paymentStatus != 2)
                 {
 
                 }
                 order.isPaid = true;
                 grammarPayment.Enabled = false;
-                ss.Speak("Płatność zakończona, dziękuję");
+                ss.Speak("Płatność zakończona, dziękuję. Do widzenia.");
+                showTicketMachineStatment("Płatność zakończona, dziękuję. Do widzenia.");
             }
         }
         private void updateStatus(SpeechRecognizedEventArgs e)
@@ -226,22 +213,36 @@ namespace SWP_Biletomat
             {
                 grammarFollowingOperation.Enabled = false;
                 grammarTickets.Enabled = true;
-                ss.Speak("prosze wskazać bilet");
+                ss.Speak("Prosze wskazać bilet");
+                showTicketMachineStatment("Prosze wskazać bilet");
 
             }
             if (e.Result.Semantics["following_operation"].Value.ToString() == "nie")
             {
                 grammarFollowingOperation.Enabled = false;
-                ss.Speak("zamówienie składa się z.");
+                ss.Speak("Wybrane przez Ciebie bilety to ");
+                showTicketMachineStatment("Wybrane przez Ciebie bilety to ");
                 order.isDone = true;
                 foreach (Ticket bilet in order.Tickets)
                 {
                     ss.Speak(bilet.count + ". " + bilet.ticketType.ToString());
                 }
                 ss.Speak("Płatność kartą czy gotówką ?");
+                showTicketMachineStatment("Płatność kartą czy gotówką ?");
                 grammarFollowingOperation.Enabled = false;
                 grammarPayment.Enabled = true;
             }
+        }
+
+
+        private void showTicketMachineStatment(String s)
+        {
+            this.Dispatcher.BeginInvoke(new Action(() => {
+                String temp = History_tb.Text;
+                History_tb.Text = "-"+s;
+                History_tb.Text += "\n" + temp;
+
+            }));
         }
     }
 }

@@ -1,0 +1,35 @@
+﻿<grammar version="1.0" xml:lang="pl-PL" root="rootRule" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+
+	<rule id="rootRule">
+		<ruleref uri="#action" />
+		<tag>out.action=rules.latest();</tag>
+
+		<ruleref uri="#ticket" />
+		<tag>out.ticket=rules.latest();</tag>
+
+	</rule>
+
+	<rule id="action">
+		<one-of>
+			<item>Proszę o</item>
+			<item>Poproszę</item>
+			<item>Proszę</item>
+			<item>Proszę podać</item>
+			<item>Sprzedaj</item>
+			<item>Daj</item>
+			<item>Chciałbym</item>
+			<item>Chciałbym kupić</item>
+			<item>Chciałbym dostać</item>
+			<item>Chciałbym wziąć</item>
+			<item>Dawaj</item>
+		</one-of>
+	</rule>
+
+	<rule id="ticket">
+		<one-of>
+			<item>bilet</item>
+			<item>biletów</item>
+			<item>bilety</item>
+		</one-of>
+	</rule>
+</grammar>
