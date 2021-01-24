@@ -81,6 +81,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Numeral.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Ticket.cs" />
     <Page Include="MainWindow.xaml">

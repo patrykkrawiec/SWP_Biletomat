@@ -27,6 +27,7 @@ namespace SWP_Biletomat
         private string recognized; 
         private String ticketString;
         private float ticketPrice=0;
+        private Numeral numeral = new Numeral();
         private void Button_Click(object sender, RoutedEventArgs e){
             paymentStatus = 1;
         }
@@ -131,6 +132,7 @@ namespace SWP_Biletomat
                     ticketString = "\n" + ticketsCount + " x " + type;
                     ticketPrice += ticketsCount * order.Tickets.First(x => x.ticketType == type).ticketPrice;
                     Console.WriteLine(ticketPrice.ToString());
+                    order.Tickets.First(x => x.ticketType == type).setTicketTypeName();
                 }
                 else{
                     Ticket ticket = new Ticket();
@@ -193,7 +195,7 @@ namespace SWP_Biletomat
                 order.isDone = true;
                 foreach (Ticket bilet in order.Tickets)
                 {
-                    showTicketMachineStatment(bilet.count + ". " + bilet.ticketTypeName);
+                    showTicketMachineStatment(numeral.numList[bilet.count] + " " + bilet.ticketTypeName);
                 }
                 showTicketMachineStatment("Płatność kartą czy gotówką ?");
                 grammarFollowingOperation.Enabled = false;

@@ -73,7 +73,7 @@ namespace SWP_Biletomat
                 case TicketType.Normalny75min:
                     ticketPrice = 4.4f;
                     ticketType1 = "normaln";
-                    ticketType2 = "siedemdziesięciominutow";
+                    ticketType2 = "siedemdziesięciopięciominutow";
                     break;
                 case TicketType.Normalny24h:
                     ticketPrice = 15f;
@@ -93,7 +93,7 @@ namespace SWP_Biletomat
                 case TicketType.Ulgowy75min:
                     ticketPrice = 2.2f;
                     ticketType1 = "ulgow";
-                    ticketType2 = "siedemdziesięciominutow";
+                    ticketType2 = "siedemdziesięciopięciominutow";
                     break;
                 case TicketType.Ulgowy24h:
                     ticketPrice = 7.5f;
@@ -113,8 +113,8 @@ namespace SWP_Biletomat
         public void setTicketTypeName()
         {
             if (count == 1) ticketTypeName = ticketType1+"y "+ticketType2+"y ";
-            else if (count >= 2 && count <= 4 ) ticketTypeName = ticketType1 + "e " + ticketType2 + "e ";
-            else if (count >= 5) ticketTypeName = ticketType1 + "ych " + ticketType2 + "ych ";
+            else if (count >= 2 && count <= 4 || count >= 22 && count <= 24 || count >= 32 && count <= 34 || count >= 42 && count <= 44) ticketTypeName = ticketType1 + "e " + ticketType2 + "e ";
+            else if (count >= 5 && count <= 21 || count >= 25 && count <= 31 || count >= 35 && count <= 41 || count >= 45 && count <= 51) ticketTypeName = ticketType1 + "ych " + ticketType2 + "ych ";
 
         }
     }
