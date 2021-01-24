@@ -19,15 +19,9 @@
         <Label Name = "Recognized_lbl"  HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Height="30" Width="772" HorizontalContentAlignment="Center" FontSize="15" Foreground="White"/>
         <TextBox Name ="History_tb" HorizontalAlignment="Left" Height="122" Margin="10,287,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="772" IsEnabled="True" Background="Transparent" FontSize="12" Foreground="White"/>
         <Label Content ="Rejestr:" HorizontalAlignment="Left" Margin="10,261,0,0" VerticalAlignment="Top" FontSize="15" Foreground="White"/>
-        <ScrollViewer Name ="Ticket_viewer" Margin="493,102,10,137" Background="Transparent" FontSize="12" Foreground="White"/>
-        <Label Name = "Price_lbl1" Content="Cena biletów:"  HorizontalAlignment="Center" Margin="-90,180,0,0" VerticalAlignment="Top" Height="30" Width="100" HorizontalContentAlignment="Center" FontSize="15" Foreground="White"/>
-        <Label Name = "Price_lbl2"  HorizontalAlignment="Center" Margin="110,180,0,0" VerticalAlignment="Top" Height="30" Width="100" HorizontalContentAlignment="Center" FontSize="15" Foreground="White"/>
-
-        <Label Name="Speech_lbl" Content="" Margin="10,72,25,0" VerticalAlignment="Top" FontSize="15" Foreground="White"/>
-        <Label Name="Failed_rec_lbl" Visibility="Hidden" Content="" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" Width="250"/>
-        <Label Name="failed_count" Content="" HorizontalAlignment="Left" Margin="265,230,0,0" VerticalAlignment="Top" Width="55"/>
-        <Label Name="avaible_operation" Content="" HorizontalAlignment="Left" Margin="493,41,0,0" VerticalAlignment="Top" Height="111" Width="182"/>
-
+        <ScrollViewer Name ="Ticket_viewer" Margin="641,102,10,137" Background="Transparent" FontSize="12" Foreground="White"/>
+        <Label Name = "Price_lbl1" Content="Cena &#xD;&#xA;biletów:"  HorizontalAlignment="Center" Margin="301,180,391,0" VerticalAlignment="Top" Height="50" Width="100" HorizontalContentAlignment="Center" FontSize="15" Foreground="White" FontWeight="Bold"/>
+        <Label Name = "Price_lbl2" Margin="401,191,291,189" HorizontalContentAlignment="Center" FontSize="15" Foreground="White"/>
 
         <Button Content="Gotówka"   HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="80" Margin="311,235,0,0" Click="Button_Click_1"/>
         <Button Content="Karta"     HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="80" Margin="413,235,0,0" Click="Button_Click"/>
