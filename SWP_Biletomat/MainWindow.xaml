@@ -28,10 +28,9 @@
         <Label Name = "Recognized_lbl" Margin="10,70,10,0" VerticalAlignment="Top" Height="30" HorizontalContentAlignment="Center" FontSize="15" Foreground="White" Grid.ColumnSpan="3"/>
         <TextBox Name ="History_tb" Margin="10,36,10,19" TextWrapping="Wrap" IsEnabled="True" Background="Transparent" FontSize="12" Foreground="White" Grid.Row="1" Grid.ColumnSpan="3"/>
         <Label Content ="Rejestr:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="15" Foreground="White" Grid.Row="1" Height="30" Width="58"/>
-        <ScrollViewer Name ="Ticket_viewer" Margin="0,0,10,10" Background="Transparent" FontSize="12" Foreground="White" HorizontalAlignment="Right" Width="393" Height="253" VerticalAlignment="Bottom" Grid.Column="2"/>
-        <Label Name = "Price_lbl1" Content="Cena &#xD;&#xA;biletów:" Margin="10,0,0,65" HorizontalContentAlignment="Center" FontSize="15" Foreground="White" FontWeight="Bold" Height="50" VerticalAlignment="Bottom" Grid.Column="2" HorizontalAlignment="Left" Width="100"/>
-        <Label Name = "Price_lbl2" Margin="25,0,0,16" HorizontalContentAlignment="Center" FontSize="15" Foreground="White" Grid.Column="2" RenderTransformOrigin="0.5,0.5" Height="44" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="155">
-        </Label>
+        <ScrollViewer Name ="Ticket_viewer" Margin="0,0,10,71" Background="Transparent" FontSize="12" Foreground="White" HorizontalAlignment="Right" Width="393" Height="192" VerticalAlignment="Bottom" Grid.Column="2"/>
+        <Label Name = "Price_lbl1" Content="Cena &#xD;&#xA;biletów:" Margin="0,0,165,10" HorizontalContentAlignment="Center" FontSize="15" Foreground="White" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Right" Width="100" Height="50" VerticalAlignment="Bottom"/>
+        <Label Name = "Price_lbl2" Margin="0,0,10,10" HorizontalContentAlignment="Center" FontSize="15" Foreground="White" Grid.Column="2" RenderTransformOrigin="0.5,0.5" Height="44" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="155"/>
 
         <Button Content="Gotówka" Margin="10,0,10,10" Click="Button_Click_1" Height="50" VerticalAlignment="Bottom"/>
         <Button Content="Karta" VerticalAlignment="Bottom" Height="50" Margin="10,0,10,10" Click="Button_Click" Grid.Column="1"/>
