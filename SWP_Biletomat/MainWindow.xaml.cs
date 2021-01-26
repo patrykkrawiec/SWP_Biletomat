@@ -23,6 +23,7 @@ namespace SWP_Biletomat
         Grammar grammarStart, grammarTickets, grammarFollowingOperation, grammarPayment;
         private string instruction = "UŻYJ SFORMUŁOWANIA:    \"Poproszę bilet\" + (Odpowiedź systemu) + liczba biletów + rodzaj bieletu ";
         private string example = "PRZYKŁAD:    \"Poproszę bilet, ... jeden ulgowy dwudziestominutowy\" ";
+        private string tickets = "Dostępne bilety to:\n 20-minutowy\n 75-minutowy\n dobowy\n weekend\n\nDostępne warianty to:\n Bilet normalny\n Bilet ulgowy";
         private bool initialCondition = true;
         private string recognized; 
         private String ticketString;
@@ -40,6 +41,7 @@ namespace SWP_Biletomat
             InitializeComponent();
             Instrucion_lbl.Content = instruction;
             Exemple_lbl.Content = example;
+            Tickets_v.Content = tickets;
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerAsync();
         }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWP_Biletomat"
         mc:Ignorable="d"
-              Title="Biletomat" Height="450" Width="800">
+              Title="Biletomat" MinHeight="450" MinWidth="800"  MaxHeight="450" MaxWidth="800" Height="450" Width="800">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="Black" Offset="0"/>
@@ -20,6 +20,7 @@
         <TextBox Name ="History_tb" HorizontalAlignment="Left" Height="122" Margin="10,287,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="772" IsEnabled="True" Background="Transparent" FontSize="12" Foreground="White"/>
         <Label Content ="Rejestr:" HorizontalAlignment="Left" Margin="10,261,0,0" VerticalAlignment="Top" FontSize="15" Foreground="White"/>
         <ScrollViewer Name ="Ticket_viewer" Margin="641,102,10,137" Background="Transparent" FontSize="12" Foreground="White"/>
+        <Label Name ="Tickets_v" Margin="10,81,641,158" Background="Transparent" FontSize="12" Foreground="White"/>
         <Label Name = "Price_lbl1" Content="Cena &#xD;&#xA;biletów:"  HorizontalAlignment="Center" Margin="301,180,391,0" VerticalAlignment="Top" Height="50" Width="100" HorizontalContentAlignment="Center" FontSize="15" Foreground="White" FontWeight="Bold"/>
         <Label Name = "Price_lbl2" Margin="401,191,291,189" HorizontalContentAlignment="Center" FontSize="15" Foreground="White"/>
 
