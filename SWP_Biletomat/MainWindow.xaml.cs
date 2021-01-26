@@ -19,6 +19,7 @@ namespace SWP_Biletomat
         static SpeechSynthesizer ss;
         private Order order;
         private int paymentStatus = 0;
+        
         private readonly BackgroundWorker worker = new BackgroundWorker();
         Grammar grammarStart, grammarTickets, grammarFollowingOperation, grammarPayment;
         private string instruction = "UŻYJ SFORMUŁOWANIA:    \"Poproszę bilet\" + (Odpowiedź systemu) + liczba biletów + rodzaj bieletu ";
